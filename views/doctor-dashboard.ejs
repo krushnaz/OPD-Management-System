@@ -1,0 +1,359 @@
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:03 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>OPD Management System - Doctor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link href="img/favicon.png" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="css/style.css">
+
+		<!-- Icon css -->
+		<link rel="stylesheet" href="/admin/assets/css/feathericon.min.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+	
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<header class="header">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="/doctor-dashboard" class="navbar-brand logo">
+							<h3>OPD Management System</h3>
+							<!-- <img src="img/logo.png" class="img-fluid" alt="Logo"> -->
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="/doctor-dashboard" class="menu-logo">
+								<img src="img/logo.png" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li>
+							</li>
+							
+							<!-- <li class="login-link">
+								<a href="/login">Login / Signup</a>
+							</li> -->
+						</ul>	 
+					</div>		 
+					<ul class="nav header-navbar-rht">
+						
+						</li>
+						
+						<!-- User Menu -->
+						<li class="nav-item dropdown has-arrow logged-item">
+							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+								<span class="user-img">
+									<img class="rounded-circle" src="<%=doctor.image%>" width="31" alt="<%=doctor.name%>">
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<img src="<%=doctor.image%>" alt="User Image" class="avatar-img rounded-circle">
+									</div>
+									<div class="user-text">
+										<h6><%=doctor.name%></h6>
+										<p class="text-muted mb-0">Doctor</p>
+									</div>
+								</div>
+								<a class="dropdown-item" href="/doctor-dashboard">Dashboard</a>
+								<a class="dropdown-item" href="/doctor-profile-settings">Profile Settings</a>
+								<a class="dropdown-item" href="/logout">Logout</a>
+							</div>
+						</li>
+						<!-- /User Menu -->
+						
+					</ul>
+				</nav>
+			</header>
+			<!-- /Header -->
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+					<!-- Display error messages -->
+					<% if (error && error.length > 0) { %>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<%= error[0] %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<% } %>
+		
+						<!-- Display success messages -->
+						<% if (success && success.length > 0) { %>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<%= success[0] %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<% } %>
+					<div class="row">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+						
+							<!-- Profile Sidebar -->
+							<div class="profile-sidebar">
+								<div class="widget-profile pro-widget-content">
+									<div class="profile-info-widget">
+										<a href="#" class="booking-doc-img">
+											<img src="<%=doctor.image%>" alt="User Image">
+										</a>
+										<div class="profile-det-info">
+											<h3><%=doctor.name%></h3>
+											<div class="patient-details">
+												<h5 class="mb-0">
+													<% if (doctor.education && doctor.education.length > 0) { %>
+														<%= doctor.education[0].degree %>
+													<% } %>
+												</h5>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="dashboard-widget">
+									<nav class="dashboard-menu">
+										<ul>
+											<li class="active">
+												<a href="/doctor-dashboard">
+													<i class="fas fa-columns"></i>
+													<span>Dashboard</span>
+												</a>
+											</li>
+											<li>
+												<a href="/appointments">
+													<i class="fas fa-calendar-check"></i>
+													<span>Appointments</span>
+												</a>
+											</li>
+											<li>
+												<a href="/my-patients">
+													<i class="fas fa-user-injured"></i>
+													<span>My Patients</span>
+												</a>
+											</li>
+											<li>
+												<a href="/schedule-timings">
+													<i class="fas fa-hourglass-start"></i>
+													<span>Schedule Timings</span>
+												</a>
+											</li>
+										
+											
+											<li>
+												<a href="/doctor-profile-settings">
+													<i class="fas fa-user-cog"></i>
+													<span>Profile Settings</span>
+												</a>
+											</li>
+											
+											<li>
+												<a href="/doctor-change-password">
+													<i class="fas fa-lock"></i>
+													<span>Change Password</span>
+												</a>
+											</li>
+											<li>
+												<a href="/logout">
+													<i class="fas fa-sign-out-alt"></i>
+													<span>Logout</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<!-- /Profile Sidebar -->
+							
+						</div>
+					<div class="col-md-7 col-lg-8 col-xl-9">
+						<div class="col-md-12 col-12">
+							<h2 class="breadcrumb-title">Dashboard</h2>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card dash-card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-12 col-lg-4">
+												<div class="dash-widget dct-border-rht">
+													<div class="circle-bar circle-bar1">
+														<div class="circle-graph1" >
+															<img src="img/icon-01.png" class="img-fluid"
+																alt="patient">
+														</div>
+													</div>
+													<div class="dash-widget-info">
+														<h6>Total Patient</h6>
+														<h3><%= totalPatientsCount %></h3>
+														<p class="text-muted">Till Today</p>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-12 col-lg-4">
+												<div class="dash-widget dct-border-rht">
+													<div class="circle-bar circle-bar2">
+														<div class="circle-graph2">
+															<img src="img/icon-02.png" class="img-fluid"
+																alt="Patient">
+														</div>
+													</div>
+													<div class="dash-widget-info">
+														<h6>Today Patient</h6>
+														<h3> <%= todayAppointmentsCount %></h3>
+														<%
+															// Get the current date
+															const date = new Date();
+
+															// Define options for formatting the date
+															const options = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
+
+															// Format the date as "Fri, 29 Mar 2024"
+															const formattedDate = date.toLocaleDateString('en-US', options);
+															%>
+
+															
+														<p class="text-muted"><%= formattedDate %></p>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-12 col-lg-4">
+												<div class="dash-widget">
+													<div class="circle-bar circle-bar3">
+														<div class="circle-graph3">
+															<img src="img/icon-03.png" class="img-fluid"
+																alt="Patient">
+														</div>
+													</div>
+													<div class="dash-widget-info">
+														<h6>Appoinments</h6>
+														<h3><%= totalAppointmentsCount %></h3>
+														<p class="text-muted">Till Today</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<h4 class="mb-4">Today Patient Appoinment</h4>
+								<div class="appointment-tab">
+
+
+
+									<div class="tab-content">
+
+										<!-- Upcoming Appointment Tab -->
+										<div class="tab-pane show active" id="upcoming-appointments">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Patient Name</th>
+																	<th>Appt Date</th>
+																	<th class="text-right">Actions</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% todayAppointments.forEach(appointment => { %>
+																	<% if (appointment.status !== 'cancel by doctor') { %> <!-- Check appointment status -->
+																		<tr>
+																			<td>
+																				<h2 class="table-avatar">
+																					<a href="#" class="avatar avatar-sm mr-2">
+																						<% if (appointment.patient && appointment.patient.image) { %>
+																							<img class="avatar-img rounded-circle" src="<%= appointment.patient.image %>" alt="User Image">
+																						<% } else { %>
+																							<img class="avatar-img rounded-circle" src="/path/to/default/image.jpg" alt="Default Image">
+																						<% } %>
+																					</a>
+																					<% if (appointment.patient) { %>
+																						<a href="#"><%= appointment.patient.firstName %> <%= appointment.patient.lastName %></a>
+																					<% } else { %>
+																						<span>Patient is not available in portal</span>
+																					<% } %>
+																				</h2>
+																			</td>
+																			<% const appointmentDate = new Date(appointment.date); %>
+																			<% const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }; %>
+																			<td><%= appointmentDate.toLocaleDateString('en-IN', options) %><span class="d-block text-info"><%= appointment.startTime %> - <%= appointment.endTime %></span></td>
+																			<td class="text-right">
+																				<div class="table-action">
+																					<% if (appointment.patient) { %> <!-- Check if patient exists -->
+																						<a href="/view-appointment/<%= appointment._id %>" class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i> View 
+																						</a>
+																					<% } %>
+																				</div>
+																			</td>
+																		</tr>
+																	<% } %>
+																<% }); %>
+															</tbody>
+															
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Upcoming Appointment Tab -->
+
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+<%- include('doctor-footer')%>
+<%- include('doctor-modals')%>

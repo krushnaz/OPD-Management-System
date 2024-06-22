@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- doccure/favourites  30 Nov 2019 04:12:16 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>OPD Management System - Patient</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg header-nav">
+                <div class="navbar-header">
+                    <a id="mobile_btn" href="javascript:void(0);">
+                        <span class="bar-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </a>
+                    <a href="index-2" class="navbar-brand logo">
+                        <h3>OPD Management System</h3>
+                    </a>
+                </div>
+                <div class="main-menu-wrapper">
+                    <div class="menu-header">
+                        <a href="index-2" class="menu-logo">
+                        <h3>OPD Management System</h3>
+                        </a>
+                        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <ul class="nav header-navbar-rht">
+                    <li class="nav-item contact-item">
+                        <div class="header-contact-img">
+                        </div>
+                        <div class="header-contact-detail">
+
+                        </div>
+                    </li>
+
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown has-arrow logged-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="<%=patient.image%>" width="31"
+                                    alt="Ryan Taylor">
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="user-header">
+                                <div class="avatar avatar-sm">
+                                    <img src="<%=patient.image%>" alt="User Image"
+                                        class="avatar-img rounded-circle">
+                                </div>
+                                <div class="user-text">
+                                    <h6><%=patient.firstName%></h6>
+                                    <p class="text-muted mb-0">Patient</p>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="/patient-dashboard">Dashboard</a>
+                            <a class="dropdown-item" href="/profile-settings">Profile Settings</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </li>
+                    <!-- /User Menu -->
+
+                </ul>
+            </nav>
+        </header>
+        <!-- /Header -->
+
+
+
+        
+        <div class="content">
+            <div class="container-fluid">
+
+				<!-- Display error messages -->
+				<% if (error && error.length > 0) { %>
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<%= error[0] %>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				<% } %>
+
+				<!-- Display success messages -->
+				<% if (success && success.length > 0) { %>
+					<div class="alert alert-success alert-dismissible fade show" role="alert">
+						<%= success[0] %>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				<% } %>
+				
+                <div class="row">
+                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                        <div class="profile-sidebar">
+                            <div class="widget-profile pro-widget-content">
+                                <div class="profile-info-widget">
+									<a href="#" class="booking-doc-img">
+										<img src="<%=patient.image%>" alt="User Image">
+									</a>
+									<div class="profile-det-info">
+										<% if (patient.dob) { %>
+										<h3><%=patient.firstName%></h3>
+										<div class="patient-details">
+											<% const dobParts = patient.dob.split('/'); %>
+											<% const day = dobParts[0] || ""; %>
+											<% const month = dobParts[1] || ""; %>
+											<% const year = dobParts[2] || ""; %>
+	
+											<% function calculateAge(dob) {
+												const today = new Date();
+												const dobDate = new Date(dob);
+												let age = today.getFullYear() - dobDate.getFullYear();
+												const monthDiff = today.getMonth() - dobDate.getMonth();
+												if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+													age--;
+												}
+												return age;
+											} %>
+											<% if (day && month && year) { %>
+												<h5><i class="fas fa-birthday-cake"></i> <%= `${day}/${month}/${year}` %>, <%= calculateAge(new Date(year, month - 1, day)) %> years</h5>
+											<% } else { %>
+												<h5><i class="fas fa-birthday-cake"></i> Invalid Date</h5>
+											<% } %>
+											<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <%=patient.address%></h5>
+										</div>
+										<%}%>
+									</div>
+								</div>
+                            </div>
+                            <div class="dashboard-widget">
+                                <nav class="dashboard-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="/patient-dashboard">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/my-doctors">
+                                                <i class="fas fa-bookmark"></i>
+                                                <span>Book Appointment</span>
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="/profile-settings">
+                                                <i class="fas fa-user-cog"></i>
+                                                <span>Profile Settings</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/patient-change-password">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Change Password</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/logout">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span>Logout</span>
+                                            </a>    
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+					<!-- /Profile Sidebar -->
+
+					<div class="col-md-7 col-lg-8 col-xl-9">
+						<div class="col-md-12 col-12">
+
+							<h2 class="breadcrumb-title">Profile Settings</h2>
+						</div>
+						<div class="card">
+							<div class="card-body">
+
+								<!-- Profile Settings Form -->
+								<form action="/update-patient-profile" method="post" enctype="multipart/form-data">
+									<div class="row form-row">
+										<div class="col-12 col-md-12">
+											<div class="form-group">
+												<div class="change-avatar">
+													<div class="profile-img">
+														<img src="<%=patient.image%>" alt="User Image">
+													</div>
+													<div class="upload-img">
+														<div class="change-photo-btn">
+															<span><i class="fa fa-upload"></i> Upload Photo</span>
+															<input type="file"  name="image" class="upload">
+															<input type="hidden" name="oldImage" value="<%=patient.image%>">
+														</div>
+														<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max
+															size of 2MB</small>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>First Name</label>
+												<input type="text" name="firstName" value="<%= patient.firstName %>" class="form-control">
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Last Name</label>
+												<input type="text" name="lastName" value="<%= patient.lastName %>" class="form-control">
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Email ID</label>
+												<input type="email" class="form-control" value="<%= patient.email %>" readonly>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Date of Birth</label>
+												<div class="cal-icon">
+													<input type="text" name="dob" value="<%= patient.dob %>" class="form-control datetimepicker">
+												</div>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Blood Group</label>
+												<select name="bloodGroup" class="form-control select">
+													<option value="<%= patient.bloodGroup %>"><%= patient.bloodGroup %></option>
+													<option value="A-">A-</option>
+													<option value="A+">A+</option>
+													<option value="B-">B-</option>
+													<option value="B+">B+</option>
+													<option value="AB-">AB-</option>
+													<option value="AB+">AB+</option>
+													<option value="O-">O-</option>
+													<option value="O+">O+</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Gender</label>
+												<select name="gender" class="form-control">
+													<option value="<%=patient.gender%>"><%=patient.gender%></option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Mobile</label>
+												<input type="number" name="mobile" value="<%= patient.mobile %>" class="form-control">
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Address</label>
+												<input type="text" name="address" value="<%= patient.address %>" class="form-control" >
+											</div>
+										</div>
+										<div class="col-12 col-md-6">
+											<div class="form-group">
+												<label>Pin Code</label>
+												<input type="number" name="pincode" value="<%= patient.pincode %>" class="form-control">
+											</div>
+										</div>
+									</div>
+									<div class="submit-section">
+										<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+									</div>
+								</form>
+								<!-- /Profile Settings Form -->
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /Page Content -->
+
+<%- include('patient-footer')%>		

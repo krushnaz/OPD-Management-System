@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- doccure/favourites  30 Nov 2019 04:12:16 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>OPD Management System - Patient</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <!-- Favicons -->
+    <link href="img/favicon.png" rel="icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg header-nav">
+                <div class="navbar-header">
+                    <a id="mobile_btn" href="javascript:void(0);">
+                        <span class="bar-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </a>
+                    <a href="index-2" class="navbar-brand logo">
+                        <h3>OPD Management System</h3>
+                    </a>
+                </div>
+                <div class="main-menu-wrapper">
+                    <div class="menu-header">
+                        <a href="index-2" class="menu-logo">
+                        <h3>OPD Management System</h3>
+                        </a>
+                        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+
+                </div>
+                <ul class="nav header-navbar-rht">
+                    <li class="nav-item contact-item">
+                        <div class="header-contact-img">
+                        </div>
+                        <div class="header-contact-detail">
+
+                        </div>
+                    </li>
+
+                    <!-- User Menu -->
+                    <li class="nav-item dropdown has-arrow logged-item">
+                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                            <span class="user-img">
+                                <img class="rounded-circle" src="<%=patient.image%>" width="31"
+                                    alt="Patient Image">
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <div class="user-header">
+                                <div class="avatar avatar-sm">
+                                    <img src="<%=patient.image%>" alt="User Image"
+                                        class="avatar-img rounded-circle">
+                                </div>
+                                <div class="user-text">
+                                    <h6><%=patient.firstName%></h6>
+                                    <p class="text-muted mb-0">Patient</p>
+                                </div>
+                            </div>
+                            <a class="dropdown-item" href="/patient-dashboard">Dashboard</a>
+                            <a class="dropdown-item" href="/profile-settings">Profile Settings</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </li>
+                    <!-- /User Menu -->
+
+                </ul>
+            </nav>
+        </header>
+        <!-- /Header -->
+
+
+
+        
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Display error messages -->
+					<% if (error && error.length > 0) { %>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<%= error %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<% } %>
+
+					<!-- Display success messages -->
+					<% if (success && success.length > 0) { %>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<%= success[0] %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<% } %>
+                    
+                    
+                <div class="row">
+                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                        <div class="profile-sidebar">
+                            <div class="widget-profile pro-widget-content">
+                                <div class="profile-info-widget">
+									<a href="#" class="booking-doc-img">
+										<img src="<%=patient.image%>" alt="User Image">
+									</a>
+									<div class="profile-det-info">
+										<h3><%=patient.firstName%></h3>
+										<div class="patient-details">
+                                            <% if (patient && patient.dob && typeof patient.dob === 'string' && patient.dob.trim() !== '') { %>
+                                                <% const dobParts = patient.dob.split('/'); %>
+                                                <% const day = dobParts[0] || ""; %>
+                                                <% const month = dobParts[1] || ""; %>
+                                                <% const year = dobParts[2] || ""; %>
+                                        
+                                                <% function calculateAge(dob) {
+                                                    const today = new Date();
+                                                    const dobDate = new Date(dob);
+                                                    let age = today.getFullYear() - dobDate.getFullYear();
+                                                    const monthDiff = today.getMonth() - dobDate.getMonth();
+                                                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dobDate.getDate())) {
+                                                        age--;
+                                                    }
+                                                    return age;
+                                                } %>
+                                        
+                                                <h5><i class="fas fa-birthday-cake"></i> <%= `${day}/${month}/${year}` %>, <%= calculateAge(new Date(year, month - 1, day)) %> years</h5>
+                                            <% } else { %>
+                                                <h5><i class="fas fa-birthday-cake"></i> Invalid Date</h5>
+                                            <% } %>
+                                            <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <%=patient.address%></h5>
+                                        </div>
+                                        
+									</div>
+								</div>
+                            </div>
+                            
+                            <div class="dashboard-widget">
+                                <nav class="dashboard-menu">
+                                    <ul>
+                                        <li>
+                                            <a href="/patient-dashboard">
+                                                <i class="fas fa-columns"></i>
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>
+                                        <li class="active">
+                                            <a href="/my-doctors">
+                                                <i class="fas fa-bookmark"></i>
+                                                <span>Book Appointment</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/profile-settings">
+                                                <i class="fas fa-user-cog"></i>
+                                                <span>Profile Settings</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/patient-change-password">
+                                                <i class="fas fa-lock"></i>
+                                                <span>Change Password</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/logout">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <span>Logout</span>
+                                            </a>    
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                      <!-- Page Content -->
+
+                    <div class="col-md-7 col-lg-8 col-xl-9">
+                       <!-- date -->
+                       
+                       <label for="">Check doctor available</label>
+                       <div class="search-box">
+                        <form action="/search-doctors" method="post">
+                            <div class="form-group">
+                                <input type="date" id="selectedDate" class="form-control datetimepicker" name="date" required>
+                            </div>
+                            <div class="form-group search-info col-md-1">
+                                <button type="submit" class="btn btn-primary search-btn"><i class="fas fa-search"></i>
+                                    <span>Search</span></button>	
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /date -->
+                        <div class="row row-grid">
+                            <% doctors.forEach((doctor, index) => { %>
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="profile-widget">
+                                        <div class="doc-img">
+                                            <a href="/doctor-profile/<%=doctor._id%>">
+                                                <img class="img-fluid" alt="Doctor Image" src="<%= doctor.image %>">
+                                            </a>
+                                        </div>
+                                        <div class="pro-content">
+                                            <h3 class="title">
+                                                <a href="/doctor-profile/<%=doctor._id%>"><%= doctor.name %></a>
+                                                <i class="fas fa-check-circle verified"></i>
+                                            </h3>
+                                            <p class="speciality">
+                                                <% if (doctor.education && doctor.education.length > 0) { %>
+                                                    <%= doctor.education[0].degree %>
+                                                <% } %>
+                                            </p>
+                                            <ul class="available-info">
+                                                <li>
+                                                    Speciality : <%= doctor.specialtyName %>
+                                                </li>
+                                                <li>
+                                                    <% const parts = selectedDate.split('-'); %>
+                                                    <% const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; %>
+                                                    <i class="far fa-clock"></i> Available on <%= formattedDate %>
+                                                </li>
+                                            </ul>
+                                            <div class="row row-sm">
+                                                <div class="col-6">
+                                                    <a href="/doctor-profile/<%= doctor._id %>" class="btn view-btn">View Profile</a>
+                                                </div>
+                                                <div class="col-6">
+                                                    <a href="/booking-appointment/<%= doctor._id %>?date=<%= selectedDate %>" class="btn book-btn">Book Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% }) %>
+                            
+                           <!-- /Page Content -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+      
+
+        <!-- Footer -->
+        <footer class="footer">
+
+           
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container-fluid">
+
+                    <!-- Copyright -->
+                    <div class="copyright">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="copyright-text">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+
+                                <!-- Copyright Menu -->
+                                <div class="copyright-menu">
+                                    <ul class="policy-menu">
+                                    </ul>
+                                </div>
+                                <!-- /Copyright Menu -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Copyright -->
+
+                </div>
+            </div>
+            <!-- /Footer Bottom -->
+
+        </footer>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Sticky Sidebar JS -->
+    <script src="plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
+    <script src="plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/script.js"></script>
+
+    <!-- Datetimepicker JS -->
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- JavaScript to handle date selection and AJAX request -->
+<script>
+    document.getElementById('selectedDate').addEventListener('change', function() {
+        const selectedDate = this.value;
+        fetchDoctors(selectedDate);
+    });
+
+    function fetchDoctors(selectedDate) {
+        fetch('/search-doctors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ date: selectedDate })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Render the available doctors using the data returned by the server
+            console.log(data); // Just for debugging, replace this with your rendering logic
+        })
+        .catch(error => console.error('Error fetching doctors:', error));
+    }
+</script>
+
+<script>
+    // Get today's date
+    var today = new Date();
+
+    // Convert today's date to a string in yyyy-MM-dd format
+    var minDate = today.toISOString().split('T')[0];
+
+    // Set the minimum date for the date input field
+    document.getElementById('selectedDate').min = minDate;
+</script>
+
+<script>
+    
+</script>
+
+</body>
+
+<!-- doccure/favourites  30 Nov 2019 04:12:17 GMT -->
+
+</html>

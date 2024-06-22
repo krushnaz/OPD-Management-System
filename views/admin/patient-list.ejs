@@ -1,0 +1,133 @@
+<%- include('admin_header')%>
+
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">List of Patient</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="/admin-dashboard">Dashboard</a></li>
+									<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+									<li class="breadcrumb-item active">Patient</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+					<div class="row">
+						<% if (success && success.length > 0) { %>
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<%= success[0] %>
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						<% } %>
+						
+						<% if (error && error.length > 0) { %>
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<%= error[0] %>
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						<% } %>
+						
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Patient Name</th>
+													<th>Age</th>
+													<th>Address</th>
+													<th>Phone</th>
+													<th>Blood Group</th>
+													<th class="text-right">Actions</th>
+												</tr>
+											</thead>
+											<tbody>
+												<%patients.forEach(patient=>{%>
+												<tr>
+													<td>
+														<h2 class="table-avatar">
+															<a href="#" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="<%=patient.image%>" alt="Patient Image"></a>
+															<a href="#"><%=patient.firstName%> <%=patient.lastName%></a>
+														</h2>
+													</td>
+													<td>
+
+														<% if (patient.dob) { %>
+															<% const dobParts = patient.dob.split('/'); %>
+															<% const day = parseInt(dobParts[0], 10); %>
+															<% const month = parseInt(dobParts[1], 10) - 1; %>
+															<% const year = parseInt(dobParts[2], 10); %>
+															<% const dobDate = new Date(year, month, day); %>
+															<% const today = new Date(); %>
+															<% const age = Math.floor((today - dobDate) / (365.25 * 24 * 60 * 60 * 1000)); %>
+															<p><%= age %> years</p>
+														<% } else { %>
+															<p>Date of birth not available</p>
+														<% } %>	
+													</td>
+													<td><%=patient.address%></td>
+													<td><%=patient.mobile%></td>
+													<td><%=patient.bloodGroup%></td>
+													<td class="text-right">
+														<div class="actions">
+														
+															<a data-toggle="modal" href="#delete_modal_<%=patient._id%>"
+																class="btn btn-sm bg-danger-light">
+																<i class="fe fe-trash"></i> Delete
+															</a>
+														</div>
+													</td>
+												</tr>
+												<%})%>
+											</tbody>
+										</table>
+									</div>
+									</div>
+								</div>
+							</div>
+						</div>			
+					</div>
+					
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+		
+        </div>
+		<!-- /Main Wrapper -->
+		<!-- Cancel Modal -->
+		<%patients.forEach(patient=>{%>
+<div class="modal fade" id="delete_modal_<%=patient._id%>" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Cancel Appointment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-4">Are you sure you want to remove this patient?</p>
+				<form action="/delete-patient/<%=patient._id%>" method="post">
+                	<button type="submit" class="btn btn-danger mr-2">Yes</button>
+                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>
+<%})%>
+
+<%- include('admin_footer')%>

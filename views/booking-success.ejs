@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- OPD Management System/booking-success.html  30 Nov 2019 04:12:16 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>OPD Management System - Patient</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link href="img/favicon.png" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="css/style.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+	
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<header class="header">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="#" class="navbar-brand logo">
+							<h3>OPD Management System</h3>
+							<!-- <img src="img/logo.png" class="img-fluid" alt="Logo"> -->
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="/patient-dashboard" class="menu-logo">
+								<img src="img/logo.png" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+							<!-- <ul class="main-nav">
+								<li>
+								</li>
+									
+								<li class="has-submenu active">
+									<a href="#">Patients <i class="fas fa-chevron-down"></i></a>
+									<ul class="submenu">
+										<li><a href="doctor-profile.html">Doctor Profile</a></li>
+										<li><a href="booking.html">Booking</a></li>
+										<li><a href="checkout.html">Checkout</a></li>
+										<li class="active"><a href="booking-success.html">Booking Success</a></li>
+										<li><a href="patient-dashboard.html">Patient Dashboard</a></li>
+										<li><a href="profile-settings.html">Profile Settings</a></li>
+										<li><a href="change-password.html">Change Password</a></li>
+									</ul> -->
+							</li>	
+							
+							
+						</ul>	 
+					</div>		 
+					<ul class="nav header-navbar-rht">
+						
+					
+					</ul>
+				</nav>
+			</header>
+			<!-- /Header -->
+			
+			<!--  -->
+			
+			<!-- Page Content -->
+			<div class="content success-page-cont">
+				<div class="container-fluid">
+				
+					<div class="row justify-content-center">
+						<div class="col-lg-6">
+						
+							<!-- Success Card -->
+							<div class="card success-card">
+								<div class="card-body">
+									<div class="success-cont">
+										<i class="fas fa-check"></i>
+										<h3>Appointment booked Successfully!</h3>
+										<p>Appointment booked with <strong><%=doctor.name%></strong><br> on <strong><% const parts = date.split('-'); %>
+											<% const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; %> <%= formattedDate %> at	 <%= appointmentData.startTime %> to <%= appointmentData.endTime %></strong></p>
+										<a href="/patient-dashboard" class="btn btn-primary view-inv-btn">Return to dashboard</a>
+									</div>
+								</div>
+							</div>
+							<!-- /Success Card -->
+							
+						</div>
+					</div>
+					
+				</div>
+			</div>		
+			<!-- /Page Content -->
+   
+			<!-- Footer -->
+			<footer class="footer">
+				
+				
+				
+				<!-- Footer Bottom -->
+                <div class="footer-bottom">
+					<div class="container-fluid">
+					
+						<!-- Copyright -->
+						<div class="copyright">
+							
+						</div>
+						<!-- /Copyright -->
+						
+					</div>
+				</div>
+				<!-- /Footer Bottom -->
+				
+			</footer>
+			<!-- /Footer -->
+		   
+		</div>
+		<!-- /Main Wrapper -->
+	  
+		<!-- jQuery -->
+		<script src="js/jquery.min.js"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		
+		<!-- Custom JS -->
+		<script src="js/script.js"></script>
+		
+	</body>
+
+<!-- OPD Management System/booking-success.html  30 Nov 2019 04:12:16 GMT -->
+</html>

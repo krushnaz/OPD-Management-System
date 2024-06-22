@@ -1,0 +1,251 @@
+<%- include('admin_header')%>
+
+		<!-- Page Wrapper -->
+		<div class="page-wrapper">
+
+			<div class="content container-fluid">
+
+				<!-- Page Header -->
+				<div class="page-header">
+						<% if (success) { %>
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<%= success %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+						<% } %>
+						
+						<% if (error) { %>
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<%= error %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							</div>
+						<% } %>
+						
+					<div class="doc-info-right">
+						<a href="#Add_Specialities_details" data-toggle="modal"
+							class="btn btn-primary float-right mt-2">Add Doctor</a>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 class="page-title">List of Doctors</h3>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/admin-dashboard">Dashboard</a></li>
+								<li class="breadcrumb-item"><a href="javascript:(0);">Users</a></li>
+								<li class="breadcrumb-item active">Doctor</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- /Page Header -->
+
+				<!-- Add Modal -->
+				<div class="modal fade" id="Add_Specialities_details" aria-hidden="true" role="dialog">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Add Doctor</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<!-- Register Form -->
+								<form action="/add-doctor" method="post" class="row">
+									<div class="col-md-6">
+										<div class="form-group form-focus">
+											<input type="text" name="name" class="form-control floating" required>
+											<label class="focus-label">Name</label>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-focus">
+											<select name="specialityId" class="form-control select" required>
+												<option value="">Select Speciality</option>
+												<% specialities.forEach((row, index) => { %>
+													<option value="<%= row._id %>"><%= row.name %></option>
+												<% }); %>
+											</select>
+											<label class="focus-label">Speciality ID</label>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-focus">
+											<input type="number" name="mobile" class="form-control floating" required oninput="maxLengthCheck(this)" maxlength="10">
+											<label class="focus-label">Mobile Number</label>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-focus">
+											<input type="email" name="email" class="form-control floating" required>
+											<label class="focus-label">Email</label>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group form-focus">
+											<input type="password" name="password" class="form-control floating" required>
+											<label class="focus-label">Create Password</label>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Add Doctor</button>
+									</div>
+								</form>
+
+								<!-- /Register Form -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /ADD Modal -->
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="datatable table table-hover table-center mb-0">
+										<thead>
+											<tr>
+												<th>Sr.no</th>
+												<th>Doctor Name</th>
+												<th>Speciality</th>
+												<th>Email</th>
+												<th class="text-right">Actions</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% doctors.forEach((row, index) => { %>
+											<tr>
+												<th><%=index+1%></th>
+												<td>
+													<h2 class="table-avatar">
+														<a href="/doctor-profile/<%=row._id%>" class="avatar avatar-sm mr-2"><img
+																class="avatar-img rounded-circle"
+																src="<%=row.image%>"
+																alt="Doctor Image"></a>
+														<a href="/doctor-profile/<%=row._id%>"><%=row.name%></a>
+													</h2>
+												</td>
+												<td><%=row.specialityId.name%></td>
+												<td><%=row.email%></td>
+												<td class="text-right">
+													<div class="actions">
+														<a class="btn btn-sm bg-success-light edit-doctor" data-toggle="modal"
+															href="#edit_specialities_details<%=row._id%>">
+															<i class="fe fe-pencil"></i> Edit
+														</a>
+														<a data-toggle="modal" href="#delete_modal<%=row._id%>"
+															class="btn btn-sm bg-danger-light">
+															<i class="fe fe-trash"></i> Delete
+														</a>
+													</div>
+												</td>
+											</tr>
+											<% }) %>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- /Page Wrapper -->
+
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- Edit Details Modal -->
+	<% doctors.forEach((row, index) => { %>
+	<div class="modal fade" id="edit_specialities_details<%=row._id%>" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Edit Doctor</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="/update-doctor/<%= row._id %>" method="post" class="row">
+						<div class="col-md-6">
+							<div class="form-group form-focus">
+								<input type="text" name="name" value="<%=row.name%>" class="form-control floating" required>
+								<label class="focus-label">Name</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group form-focus">
+								<select name="specialityId" class="form-control select" required>
+									<option value="<%=row.specialityId._id%>"><%=row.specialityId.name%></option>
+									<% specialities.forEach((row, index) => { %>
+										<option value="<%= row._id %>"><%= row.name %></option>
+									<% }); %>
+								</select>
+								<label class="focus-label">Specialities</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group form-focus">
+								<input type="text" name="mobile" value="<%=row.mobile%>" class="form-control floating" required>
+								<label class="focus-label">Mobile Number</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group form-focus">
+								<input type="email" name="email" value="<%=row.email%>" class="form-control floating">
+								<label class="focus-label">Email</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group form-focus">
+								<input type="password" name="password" value="" class="form-control floating">
+								<label class="focus-label">Create Password</label>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<button class="btn btn-primary btn-block btn-lg login-btn" type="submit">Edit
+								Doctor</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% }) %>
+	<!-- /Edit Details Modal -->
+
+	<!-- Delete Modal -->
+	<% doctors.forEach((row, index) => { %>
+	<div class="modal fade" id="delete_modal<%=row._id%>" aria-hidden="true" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<!--	<div class="modal-header">
+					<h5 class="modal-title">Delete</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>-->
+				<div class="modal-body">
+					<div class="form-content p-2">
+						<form action="/delete-doctor/<%=row._id%>" method="post">
+							<h4 class="modal-title">Delete</h4>
+							<p class="mb-4">Are you sure want to delete?</p>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel </button>
+							<button type="submit" class="btn btn-danger">Delete</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% }) %>
+	<!-- /Delete Modal -->
+
+
+
+	<%- include('admin_footer')%>

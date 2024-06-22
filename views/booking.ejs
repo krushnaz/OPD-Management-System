@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- OPD Management System/booking.html  30 Nov 2019 04:12:16 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<title>OPD Management System - Patient</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	<!-- Favicons -->
+	<link href="/img/favicon.png" rel="icon">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<header class="header">
+			<nav class="navbar navbar-expand-lg header-nav">
+				<div class="navbar-header">
+					<a id="mobile_btn" href="javascript:void(0);">
+						<span class="bar-icon">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</a>
+					<a href="/booking-appointment/<%=doctor._id%>" class="navbar-brand logo">
+						<h3>OPD Management System</h3>
+						<!-- <img src="img/logo.png" class="img-fluid" alt="Logo"> -->
+					</a>
+				</div>
+				<div class="main-menu-wrapper">
+					<div class="menu-header">
+						<a href="/booking-appointment" class="menu-logo">
+							<img src="img/logo.png" class="img-fluid" alt="Logo">
+						</a>
+						<a id="menu_close" class="menu-close" href="javascript:void(0);">
+							<i class="fas fa-times"></i>
+						</a>
+					</div>
+					>
+				</div>
+				<ul class="nav header-navbar-rht">
+
+
+				</ul>
+			</nav>
+		</header>
+
+
+		<!-- Page Content -->
+		<div class="content">
+
+			<div class="container">
+				<div class="col-md-12 col-12">
+					<% const parts = selectedDate.split('-'); %>
+					<% const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`; %>
+					<h2 class="breadcrumb-title">Select Appointment Slot for <%= formattedDate %></h2>
+				</div>
+				<div class="row">
+					<div class="col-12">
+
+						<div class="card">
+							<div class="card-body">
+								<div class="booking-doc-info">
+									<a href="/doctor-profile/<%=doctor._id%>" class="booking-doc-img">
+										<img src="/<%=doctor.image%>" alt="Doctor Image">
+									</a>
+									<div class="booking-info">
+										<h4><a href="/doctor-profile/<%=doctor._id%>"><%=doctor.name%></a></h4>
+									</div>
+								</div>
+							</div>
+							<form id="appointmentForm" action="/appointments" method="post">
+								<!-- Schedule Widget -->
+								<div class="card booking-schedule schedule-widget">
+									<!-- Schedule Content -->
+									<div class="schedule-cont">
+										<div class="row">
+											<div class="col-md-12">
+												<!-- Time Slot -->
+												<div class="time-slot">
+													<ul class="clearfix">
+														<% if(slots && slots.length > 0) { %>
+															<% slots.forEach(slot => { %>
+																<li>
+																	<a class="timing" href="#" onclick="selectSlot('<%= slot.startTime %>', '<%= slot.endTime %>')">
+																		<span><%= slot.startTime %> - <%= slot.endTime %></span>
+																	</a>
+																	<br>
+																</li>
+															<% }) %>
+														<% } else { %>
+															<li>No slots available</li>
+														<% } %>
+													</ul>
+												</div>
+												<!-- /Time Slot -->
+											</div>
+										</div>
+									</div>
+									<!-- /Schedule Content -->
+								</div>
+								<!-- /Schedule Widget -->
+							
+								<!-- Hidden input fields to store selected slot details -->
+								<input type="hidden" id="selectedStartTime" name="startTime">
+								<input type="hidden" id="selectedEndTime" name="endTime">
+								<input type="hidden" name="patientId" value="<%=patient._id%>">
+								<input type="hidden" name="doctorId" value="<%=doctor._id%>">
+								<input type="hidden" name="date" value="<%=selectedDate%>">
+							
+								<!-- Submit Section -->
+								<div class="submit-section proceed-btn text-right">
+									<button type="submit" class="btn btn-primary submit-btn">Book Appointment</button>
+								</div>
+								<!-- /Submit Section -->
+							</form>
+							
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- /Page Content -->
+
+
+		</div>
+		<!-- /Main Wrapper -->
+		<!-- Add a script tag at the end of your HTML to include the JavaScript code -->
+<script>
+    // Wait for the document to be ready
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all elements with the class 'timing'
+        var timingElements = document.querySelectorAll('.timing');
+
+        // Add a click event listener to each timing element
+        timingElements.forEach(function (element) {
+            element.addEventListener('click', function () {
+                // Remove the 'selected' class from all timing elements
+                timingElements.forEach(function (el) {
+                    el.classList.remove('selected');
+                });
+
+                // Add the 'selected' class to the clicked timing element
+                element.classList.add('selected');
+            });
+        });
+    });
+</script>
+
+	<script>
+		// Function to handle slot selection
+		function selectSlot(startTime, endTime) {
+			// Set the selected slot details in hidden input fields
+			document.getElementById('selectedStartTime').value = startTime;
+			document.getElementById('selectedEndTime').value = endTime;
+
+			// Optionally, you can add visual feedback to indicate the selected slot to the user
+    }
+	</script>
+
+		<!-- jQuery -->
+		<script src="js/jquery.min.js"></script>
+
+		<!-- Bootstrap Core JS -->
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+
+		<!-- Custom JS -->
+		<script src="js/script.js"></script>
+
+</body>
+
+<!-- OPD Management System/booking.html  30 Nov 2019 04:12:16 GMT -->
+
+</html>

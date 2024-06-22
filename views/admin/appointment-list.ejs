@@ -1,0 +1,108 @@
+<%- include('admin_header')%>
+			
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">Appointments</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+									<li class="breadcrumb-item active">Appointments</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					<div class="row">
+						<div class="col-md-12">
+						
+							<!-- Recent Orders -->
+							<div class="card">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="datatable table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Doctor Name</th>
+													<th>Speciality</th>
+													<th>Patient Name</th>
+													<th>Apointment Time</th>
+													<th>Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% appointments.forEach(appointment => { %>
+													<tr>
+														<td>
+															<% if (appointment.doctor) { %>
+																<h2 class="table-avatar">
+																	<a href="/doctor-profile/<%= appointment.doctor._id %>" class="avatar avatar-sm mr-2">
+																		<img class="avatar-img rounded-circle" src="<%= appointment.doctor.image %>" alt="Doctor Image">
+																	</a>
+																	<a href="/doctor-profile/<%= appointment.doctor._id %>"><%= appointment.doctor.name %></a>
+																</h2>
+															<% } else { %>
+																<p>The doctor is no longer available</p>
+															<% } %>
+														</td>
+														<td><%= appointment.doctor ? appointment.doctor.specialityId.name : 'N/A' %></td>
+														<td>
+															<h2 class="table-avatar">
+																<a href="#" class="avatar avatar-sm mr-2">
+																	<% if (appointment.patient && appointment.patient.image) { %>
+																		<img class="avatar-img rounded-circle" src="<%= appointment.patient.image %>" alt="Patient Image">
+																	<% } else { %>
+																		<img class="avatar-img rounded-circle" src="/path/to/default/image.jpg" alt="Default Image">
+																	<% } %>
+																</a>
+																<% if (appointment.patient) { %>
+																	<a href="#"><%= appointment.patient.firstName %> <%= appointment.patient.lastName %></a>
+																<% } else { %>
+																	<span>Patient is not available in portal</span>
+																<% } %>
+															</h2>
+														</td>
+														<td>
+															<% 
+																const dateString = appointment.date;
+																const date = new Date(dateString);
+												
+																// Define options for date formatting
+																const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+												
+																// Format the date string
+																const formattedDate = date.toLocaleDateString('en-US', options);
+															%>
+															<%= formattedDate %> <!-- Output: "Fri Mar 29 2024" -->
+															<span class="text-primary d-block"><%= appointment.startTime %> - <%= appointment.endTime %></span>
+														</td>
+														<td>
+															<div class="status-toggle">
+																<span class="badge badge-pill bg-success-light">Done</span>
+															</div>
+														</td>
+													</tr>
+												<% }) %>
+											</tbody>
+											
+											
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- /Recent Orders -->
+							
+						</div>
+					</div>
+				</div>			
+			</div>
+			<!-- /Page Wrapper -->
+		
+        </div>
+		<!-- /Main Wrapper -->
+		
+<%- include('admin_footer')%>

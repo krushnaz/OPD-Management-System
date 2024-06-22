@@ -1,0 +1,225 @@
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- doccure/invoice-view.html  30 Nov 2019 04:12:19 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>OPD Management System - Doctor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link href="/img/favicon.png" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="/css/style.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+	<!-- Print Button Style -->
+    <style>
+     .print-button {
+    position: fixed;
+    bottom: 5%;
+    right: 5%;
+    z-index: 10015;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    padding: 2vh 4vw; /* Adjust padding using viewport units */
+    cursor: pointer;
+}
+
+        
+    </style>
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<header class="header">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="#" class="navbar-brand logo">
+							<h3>OPD Management System</h3>
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="#" class="navbar-brand logo">
+								<h3>OPD Management System</h3>
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						
+				</nav>
+			</header>
+			<!-- /Header -->
+			
+			
+			
+			<!-- Page Content -->
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2">
+							<div class="invoice-content">
+								<div class="invoice-item">
+									<div class="row">
+										<div class="col-md-6">
+											<a href="#" class="navbar-brand logo">
+												<h3>Invoice Details</h3>
+											</a>
+										</div>
+										<div class="col-md-6">
+											<p class="invoice-details">
+												<strong>Order:</strong> #00124 <br>
+												<strong>Issued: 22-04-2024</strong> 
+											</p>
+										</div>
+									</div>
+								</div>
+								
+								<!-- Invoice Item -->
+								<div class="invoice-item">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="invoice-info">
+												<strong class="customer-text">Invoice From</strong>
+												<p class="invoice-details invoice-details-two">
+													 <br>
+													
+												</p>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="invoice-info invoice-info2">
+												<strong class="customer-text">Invoice To</strong>
+												<p class="invoice-details">
+													Krushna Zarekar<br>
+													Pune, Narhe<br>
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Invoice Item -->
+								
+								
+								
+								<!-- Invoice Item -->
+								<div class="invoice-item invoice-table-wrap">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="table-responsive">
+												<table class="invoice-table table table-bordered">
+													<thead>
+														<tr>
+															<th>Description</th>
+															<th class="text-center">Quantity</th>
+															<th class="text-center">VAT</th>
+															<th class="text-right">Total</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>General Consultation</td>
+															<td class="text-center">1</td>
+															<td class="text-center">0</td>
+															<td class="text-right">100</td>
+														</tr>
+														<tr>
+															<td>General Consultation</td>
+															<td class="text-center">1</td>
+															<td class="text-center">0</td>
+															<td class="text-right">250</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="col-md-6 col-xl-4 ml-auto">
+											<div class="table-responsive">
+												<table class="invoice-table-two table">
+													<tbody>
+													<tr>
+														<th>Subtotal:</th>
+														<td><span>350</span></td>
+													</tr>
+													<tr>
+														<th>Discount:</th>
+														<td><span>-10%</span></td>
+													</tr>
+													<tr>
+														<th>Total Amount:</th>
+														<td><span>315</span></td>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- /Invoice Item -->
+								
+								<!-- Invoice Information -->
+								<div class="other-info">
+									<h4>Other information</h4>
+									<p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed dictum ligula, cursus blandit risus. Maecenas eget metus non tellus dignissim aliquam ut a ex. Maecenas sed vehicula dui, ac suscipit lacus. Sed finibus leo vitae lorem interdum, eu scelerisque tellus fermentum. Curabitur sit amet lacinia lorem. Nullam finibus pellentesque libero.</p>
+								</div>
+								<!-- /Invoice Information -->
+								<button class="print-button" onclick="printPage()">Print</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+   
+			
+		   
+		</div>
+		<!-- /Main Wrapper -->
+	  
+		<!-- jQuery -->
+		<script src="js/jquery.min.js"></script>
+		
+		<!-- Bootstrap Core JS -->
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		
+		<!-- Custom JS -->
+		<script src="js/script.js"></script>
+		<script>
+			function printPage() {
+				window.print();
+			}
+		</script>
+	</body>
+
+<!-- doccure/invoice-view.html  30 Nov 2019 04:12:20 GMT -->
+</html>

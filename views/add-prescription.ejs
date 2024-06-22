@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- doccure/add-prescription  30 Nov 2019 04:12:37 GMT -->
+
+<head>
+    <meta charset="utf-8">
+    <title>OPD Management System - Doctor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="js/html5shiv.min.js"></script>
+            <script src="js/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        <!-- Header -->
+        <header class="header">
+            <nav class="navbar navbar-expand-lg header-nav">
+                <div class="navbar-header">
+                    <a id="mobile_btn" href="javascript:void(0);">
+                        <span class="bar-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </a>
+                    <a href="#" class="navbar-brand logo">
+                        <h3>OPD Management System</h3>
+                    </a>
+                </div>
+                <div class="main-menu-wrapper">
+                    <div class="menu-header">
+                        <a href="#" class="menu-logo">
+                            <h3>OPD Management System</h3>
+                        </a>
+                        <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- User Menu -->
+                <li class="nav-item dropdown has-arrow logged-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="/<%=appointment.doctor.image%>" width="31"
+                                alt="<%=appointment.doctor.name%>">
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="/<%=appointment.doctor.image%>" alt="Doctor Image"
+                                    class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>
+                                    <%=appointment.doctor.name%>
+                                </h6>
+                                <p class="text-muted mb-0">Doctor</p>
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="/doctor-dashboard">Dashboard</a>
+                        <a class="dropdown-item" href="/doctor-profile-settings">Profile Settings</a>
+                        <a class="dropdown-item" href="/logout">Logout</a>
+                    </div>
+                </li>
+                <!-- /User Menu -->
+
+                </ul>
+            </nav>
+        </header>
+        <!-- /Header -->
+        <!-- prescription-form.html -->
+
+
+
+        <!-- Page Content -->
+        <div class="content">
+            <div class="container-fluid">
+                <% if (error && error.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <%= error[0] %>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+
+                <!-- Display success messages -->
+                <% if (success && success.length > 0) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= success[0] %>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+                <div class="row">
+                    
+                    <div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+                        <form id="prescriptionForm" action="/save-prescription/<%=appointment._id%>" method="POST">
+                            <!-- Profile Widget -->
+                            <div class="card widget-profile pat-widget-profile">
+                                <div class="card-body">
+                                    <div class="pro-widget-content">
+                                        <div class="profile-info-widget">
+                                            <a href="#" class="booking-doc-img">
+                                                <img src="/<%=appointment.patient.image%>" alt="Patient Image">
+                                            </a>
+                                            <div class="profile-det-info">
+                                                <h3><a href="patient-profile">
+                                                        <%=appointment.patient.firstName%>
+                                                            <%=appointment.patient.lastName%>
+                                                    </a></h3>
+                                                <div class="patient-details">
+                                                    <!-- <h5><b>Patient ID :</b> PT0016</h5> -->
+                                                    <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>
+                                                        <%=appointment.patient.address%>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="patient-info">
+                                        <ul>
+                                            <li>Phone <span>
+                                                    <%=appointment.patient.mobile%>
+                                                </span></li>
+                                            <li>Age <span>
+                                                    <% if (appointment.patient.dob) { %>
+                                                        <% const dobParts=appointment.patient.dob.split('/'); %>
+                                                            <% const day=parseInt(dobParts[0], 10); %>
+                                                                <% const month=parseInt(dobParts[1], 10) - 1; %>
+                                                                    <% const year=parseInt(dobParts[2], 10); %>
+                                                                        <% const dobDate=new Date(year, month, day); %>
+                                                                            <% const today=new Date(); %>
+                                                                                <% const age=Math.floor((today -
+                                                                                    dobDate) / (365.25 * 24 * 60 * 60 *
+                                                                                    1000)); %>
+                                                                                    <%= age %> years
+                                                                                        <% } else { %>
+                                                                                            Date of birth not available
+                                                                                            <% } %>,
+                                                                                                <%=appointment.patient.gender%>
+                                                </span></li>
+                                            <li>Blood Group <span>
+                                                    <%=appointment.patient.bloodGroup%>
+                                                </span></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /Profile Widget -->
+
+                            <a href="/view-appointment/<%=appointment._id%>" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Go back</span>
+                            </a>
+
+                    </div>
+
+                    <div class="col-md-7 col-lg-8 col-xl-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title mb-0">Add Prescription</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="biller-info">
+                                            <h4 class="d-block">
+                                                <%=appointment.doctor.name%>
+                                            </h4>
+                                            <span class="d-block text-sm text-muted">
+                                                <%=appointment.doctor.specialityId.name%>
+                                            </span>
+                                            <span class="d-block text-sm text-muted">
+                                                <%=appointment.doctor.education[0].degree%>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 text-sm-right">
+                                        <div class="billing-info">
+                                            <h4 class="d-block">
+                                                <% const date=new Date(); // Define options for date formatting const
+                                                    options={ weekday: 'short' , month: 'short' , day: 'numeric' ,
+                                                    year: 'numeric' }; // Format the date string const
+                                                    formattedDate=date.toLocaleDateString('en-US', options); %>
+
+                                                    <%= formattedDate %>
+                                            </h4>
+                                            <!-- <span class="d-block text-muted">#INV0001</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <!-- Prescription Form -->
+<div class="col-md-7 col-lg-8 col-xl-9">
+    <div class="col-md-12 col-12">
+        <h2 class="breadcrumb-title">Prescription</h2>
+    </div>
+    <div class="card">
+        <div class="card-body">
+
+            <!-- Prescription Form -->
+            <form action="/submit-prescription" method="post">
+                <div class="row form-row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="patientName">Patient Name</label>
+                            <input type="text" name="patientName" id="patientName" class="form-control" value=" <%=appointment.patient.firstName%> <%=appointment.patient.lastName%>" readonly>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="doctorName">Doctor Name</label>
+                            <input type="text" name="doctorName" id="doctorName" class="form-control" value="  <%=appointment.doctor.name%>" readonly>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="medicines">Medicines</label>
+                            <textarea name="medicines" id="medicines" class="form-control" rows="3" placeholder="Enter prescribed medicines" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea name="notes" id="notes" class="form-control" rows="3" placeholder="Enter additional notes"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit-section">
+                    <!-- <button type="submit" class="btn btn-primary submit-btn">Submit</button> -->
+					<button type="submit" class="btn btn-primary .save-btn" name="save">Save</button>
+					<!-- Clear button -->
+					<button type="reset" class="btn btn-secondary"
+						name="clear-btn">Clear</button>
+                </div>
+            </form>
+            <!-- /Prescription Form -->
+
+        </div>
+    </div>
+</div>
+<!-- /Prescription Form -->
+
+
+
+                                <!-- Submit Section -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="submit-section"> 
+                                            <!-- Save button -->
+                                         
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Submit Section -->
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /Page Content -->
+
+        <!-- Footer -->
+        <footer class="footer">
+
+
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container-fluid">
+
+                    <!-- Copyright -->
+                    <div class="copyright">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <div class="copyright-text">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+
+                                <!-- Copyright Menu -->
+                                <div class="copyright-menu">
+
+                                </div>
+                                <!-- /Copyright Menu -->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Copyright -->
+
+                </div>
+            </div>
+            <!-- /Footer Bottom -->
+
+        </footer>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- <script>
+        // Wait for the document to be fully loaded
+        document.addEventListener("DOMContentLoaded", function () {
+            // Find the "Save" button
+            var saveButton = document.querySelector([name="save"]);
+
+            // Add event listener to the "Save" button
+            saveButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                // Get the medicine name
+                var medicineName = document.querySelector("input[name='medicineName']").value;
+
+                // Send medicine name to the server using fetch API or any other method (e.g., AJAX)
+                fetch('/save-prescription/<%=appointment._id%>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ medicineName: medicineName }) // Send only the medicine name
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+                        throw new Error('Failed to save prescription');
+                    })
+                    .then(data => {
+                        // Handle success response from the server
+                        console.log('Prescription saved successfully:', data);
+                        // Optionally, show a success message to the user
+                    })
+                    .catch(error => {
+                        // Handle error response from the server
+                        console.error('Error saving prescription:', error);
+                        // Optionally, show an error message to the user
+                    });
+            });
+        });
+
+    </script> -->
+</body>
+
+</html>

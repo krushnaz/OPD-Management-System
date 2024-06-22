@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- doccure/favourites  30 Nov 2019 04:12:16 GMT -->
+
+<head>
+	<meta charset="utf-8">
+	<title>OPD Management System - Patient</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	<!-- Favicons -->
+	<link href="img/favicon.png" rel="icon">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<header class="header">
+			<nav class="navbar navbar-expand-lg header-nav">
+				<div class="navbar-header">
+					<a id="mobile_btn" href="javascript:void(0);">
+						<span class="bar-icon">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</a>
+					<a href="#" class="navbar-brand logo">
+						<h3>OPD Management System</h3>
+					</a>
+				</div>
+				<div class="main-menu-wrapper">
+					<div class="menu-header">
+						<a href="#" class="menu-logo">
+							<h3>OPD Management System</h3>
+						</a>
+						<a id="menu_close" class="menu-close" href="javascript:void(0);">
+							<i class="fas fa-times"></i>
+						</a>
+					</div>
+
+				</div>
+				<ul class="nav header-navbar-rht">
+					<li class="nav-item contact-item">
+						<div class="header-contact-img">
+						</div>
+						<div class="header-contact-detail">
+
+						</div>
+					</li>
+
+					<!-- User Menu -->
+					<li class="nav-item dropdown has-arrow logged-item">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+							<span class="user-img">
+								<img class="rounded-circle" src="<%=patient.image%>" width="31" alt="Patient Image">
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<div class="user-header">
+								<div class="avatar avatar-sm">
+									<img src="<%=patient.image%>" alt="Patient Image" class="avatar-img rounded-circle">
+								</div>
+								<div class="user-text">
+									<h6>
+										<%=patient.firstName%>
+									</h6>
+									<p class="text-muted mb-0">Patient</p>
+								</div>
+							</div>
+							<a class="dropdown-item" href="/patient-dashboard">Dashboard</a>
+							<a class="dropdown-item" href="/profile-settings">Profile Settings</a>
+							<a class="dropdown-item" href="/logout">Logout</a>
+						</div>
+					</li>
+					<!-- /User Menu -->
+
+				</ul>
+			</nav>
+		</header>
+		<!-- /Header -->
+
+
+
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container-fluid">
+				<div class="row">
+
+					<!-- Display error messages -->
+					<!-- Profile Sidebar -->
+					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+						<div class="profile-sidebar">
+							<div class="widget-profile pro-widget-content">
+								<div class="profile-info-widget">
+									<a href="#" class="booking-doc-img">
+										<img src="<%=patient.image%>" alt="Patient Image">
+									</a>
+									<div class="profile-det-info">
+										<h3>
+											<%=patient.firstName%>
+										</h3>
+										<div class="patient-details">
+											<% if (patient.dob) { %>
+												<% const dobParts=patient.dob.split('/'); %>
+													<% const day=dobParts[0] || "" ; %>
+														<% const month=dobParts[1] || "" ; %>
+															<% const year=dobParts[2] || "" ; %>
+
+
+																<% function calculateAge(dob) { const today=new Date();
+																	const dobDate=new Date(dob); let
+																	age=today.getFullYear() - dobDate.getFullYear();
+																	const monthDiff=today.getMonth() -
+																	dobDate.getMonth(); if (monthDiff < 0 ||
+																	(monthDiff===0 && today.getDate() <
+																	dobDate.getDate())) { age--; } return age; } %>
+																	<% if (day && month && year) { %>
+																		<h5><i class="fas fa-birthday-cake"></i>
+																			<%= `${day}/${month}/${year}` %>, <%=
+																					calculateAge(new Date(year, month -
+																					1, day)) %> years
+																		</h5>
+																		<% } else { %>
+																			<h5><i class="fas fa-birthday-cake"></i>
+																				Invalid Date</h5>
+																			<% } %>
+																				<h5 class="mb-0"><i
+																						class="fas fa-map-marker-alt"></i>
+																					<%=patient.address%>
+																				</h5>
+																				<%}%>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-widget">
+								<nav class="dashboard-menu">
+									<ul>
+										<li class="active">
+											<a href="/patient-dashboard">
+												<i class="fas fa-columns"></i>
+												<span>Dashboard</span>
+											</a>
+										</li>
+
+										<li class="">
+											<a href="/my-doctors">
+												<i class="fas fa-bookmark"></i>
+												<span>Book Appointment</span>
+											</a>
+										</li>
+
+
+										<li>
+											<a href="/profile-settings">
+												<i class="fas fa-user-cog"></i>
+												<span>Profile Settings</span>
+											</a>
+										</li>
+										<li>
+											<a href="/patient-change-password">
+												<i class="fas fa-lock"></i>
+												<span>Change Password</span>
+											</a>
+										</li>
+										<li>
+											<a href="/logout">
+												<i class="fas fa-sign-out-alt"></i>
+												<span>Logout</span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+
+						</div>
+					</div>
+					<!-- / Profile Sidebar -->
+
+					<div class="col-md-7 col-lg-8 col-xl-9">
+						<% if (error && error.length> 0) { %>
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<%= error %>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+							</div>
+							<% } %>
+
+								<!-- Display success messages -->
+								<% if (success && success.length> 0) { %>
+									<div class="alert alert-success alert-dismissible fade show" role="alert">
+										<%= success %>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+									</div>
+									<% } %>
+										<div class="col-md-12 col-12">
+											<h2 class="breadcrumb-title">Dashboard</h2>
+											<!-- <div class="clinic-booking doc-info-right">
+						<a class="apt-btn" href="booking.html">Book Appointment</a>
+					</div> -->
+										</div>
+										<div class="card">
+											<div class="card-body pt-0">
+
+												<!-- Tab Menu -->
+												<nav class="user-tabs mb-4">
+													<ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+														<li class="nav-item">
+															<a class="nav-link active" href="#pat_appointments"
+																data-toggle="tab">Appointments History</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#pat_prescriptions"
+																data-toggle="tab">Prescriptions</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#pat_billing"
+																data-toggle="tab">Invoices</a>
+														</li>
+
+													</ul>
+												</nav>
+												<!-- /Tab Menu -->
+
+												<!-- Tab Content -->
+												<div class="tab-content pt-0">
+
+													<!-- Appointment Tab -->
+													<div id="pat_appointments" class="tab-pane fade show active">
+														<div class="card card-table mb-0">
+															<div class="card-body">
+																<div class="table-responsive">
+																	<table class="table table-hover table-center mb-0">
+																		<thead>
+																			<tr>
+																				<th>Doctor</th>
+																				<th>Appt Date</th>
+																				<th>Booking Date</th>
+																				<th>Status</th>
+																				<th class="text-right">Actions</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<% appointments.sort((a, b)=> new
+																				Date(b.date) - new
+																				Date(a.date)).forEach(appointment => {
+																				%>
+																				<tr>
+																					<% if (appointment.doctor) { %>
+																						<td>
+																							<h2 class="table-avatar">
+																								<a href="/doctor-profile/<%=appointment.doctor._id%>"
+																									class="avatar avatar-sm mr-2">
+																									<img class="avatar-img rounded-circle"
+																										src="<%=appointment.doctor.image%>"
+																										alt="Doctor Image">
+																								</a>
+																								<a
+																									href="/doctor-profile/<%=appointment.doctor._id%>">
+																									<%=appointment.doctor.name%>
+																										<span>
+																											<%=appointment.doctor.specialityId.name%>
+																										</span>
+																								</a>
+																							</h2>
+
+																						</td>
+																						<% const appointmentDate=new
+																							Date(appointment.date); %>
+																							<% const options={
+																								weekday: 'short' ,
+																								day: 'numeric' ,
+																								month: 'short' ,
+																								year: 'numeric' }; %>
+
+																								<td>
+																									<%= appointmentDate.toLocaleDateString('en-IN',
+																										options) %><span
+																											class="d-block text-info">
+																											<%=appointment.startTime%>
+																												-
+																												<%=appointment.endTime%>
+																										</span>
+																								</td>
+
+																								<!-- Booking Date -->
+																								<% const bookingDate=new
+																									Date(appointment.bookingDate);
+																									%>
+																									<% const bookDate={
+																										weekday: 'short'
+																										, day: 'numeric'
+																										, month: 'short'
+																										,
+																										year: 'numeric'
+																										}; %>
+
+																										<td><%=bookingDate.toLocaleDateString('en-IN',
+																												bookDate)%>
+																										</td>
+
+																										<td>
+																											<% if
+																												(appointment.status==='cancel by doctor'
+																												) { %>
+																												<span
+																													class="badge badge-pill bg-danger-light">
+																													<%= appointment.status
+																														%>
+																												</span>
+																												<% } else
+																													{ %>
+																													<span
+																														class="badge badge-pill bg-success-light">
+																														<%= appointment.status
+																															%>
+																													</span>
+																													<% }
+																														%>
+																										</td>
+
+
+																										<td
+																											class="text-right">
+																											<div
+																												class="table-action">
+																												<!-- <a data-toggle="modal" href="/cancel_appointment/<%=appointment._id%>"
+																		class="btn btn-sm bg-danger-light">
+																		<i class="fas fa-times"></i> Cancel 
+																	</a> -->
+																												<form
+																													action="/cancel_appointment/<%=appointment._id%>"
+																													method="post">
+																													<button
+																														type="submit"
+																														data-toggle="modal"
+																														class="btn btn-sm bg-danger-light">
+																														<i
+																															class="fas fa-times"></i>
+																														Cancel
+																													</button>
+																												</form>
+																											</div>
+																										</td>
+																										<% } else { %>
+
+																											<% } %>
+																				</tr>
+																				<% }) %>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- /Appointment Tab -->
+													<!-- Prescription Tab -->
+													<div class="tab-pane fade" id="pat_prescriptions">
+														<div class="card card-table mb-0">
+															<div class="card-body">
+																<div class="table-responsive">
+																	<table class="table table-hover table-center mb-0">
+																		<thead>
+																			<tr>
+																				<th>Date</th>
+																				<th>Name</th>
+																				<th>Created by</th>
+																				<th></th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td>20 Apr 2024</td>
+																				<td>Prescription 1</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-01.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Krushna Zarekar<span>General
+																								Medicine</span></a>
+																					</h2>
+																				</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-prescription"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>19 Apr 2024</td>
+																				<td>Prescription 2</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-02.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Sangram
+																							Patil<span>Dental</span></a>
+																					</h2>
+																				</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-prescription"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>18 Apr 2024</td>
+																				<td>Prescription 3</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-03.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Shubham
+																							Lonare<span>Cardiology</span></a>
+																					</h2>
+																				</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-prescription"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>17 Apr 2024</td>
+																				<td>Prescription 4</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-04.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Aditya
+																							Todmal<span>Orthopedic</span></a>
+																					</h2>
+																				</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-prescription"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>16 Apr 2024</td>
+																				<td>Prescription 5</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-05.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Kunal
+																							Yadav<span>Neurology</span></a>
+																					</h2>
+																				</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-prescription"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- /Prescription Tab -->
+
+													<!-- Billing Tab -->
+													<div id="pat_billing" class="tab-pane fade">
+														<div class="card card-table mb-0">
+															<div class="card-body">
+																<div class="table-responsive">
+																	<table class="table table-hover table-center mb-0">
+																		<thead>
+																			<tr>
+																				<th>Invoice No</th>
+																				<th>Doctor</th>
+																				<th>Amount</th>
+																				<th>Paid On</th>
+																				<th></th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td>
+																					<a
+																						href="/view-invoice">#INV-0010</a>
+																				</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-01.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr. Krushna Zarekar<span>General Medicine</span></a>
+																					</h2>
+																				</td>
+																				<td>₹450</td>
+																				<td>20 Apr 2024</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-invoice"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>
+																					<a
+																						href="/view-invoice">#INV-0011</a>
+																				</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-02.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Sangram
+																							Patil<span>Dental</span></a>
+																					</h2>
+																				</td>
+																				<td>₹300</td>
+																				<td>19 Apr 2024</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-invoice"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>
+																					<a
+																						href="/view-invoice">#INV-0012</a>
+																				</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-03.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr. Shubham Lonare<span>Cardiology</span></a>
+
+																					</h2>
+																				</td>
+																				<td>₹200</td>
+																				<td>18 Apr 2024</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-invoice"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>
+																					<a
+																						href="/view-invoice">#INV-0013</a>
+																				</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-04.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Aditya
+																							Todmal<span>Orthopedic</span></a>
+																					</h2>
+																				</td>
+																				<td>₹500</td>
+																				<td>17 Apr 2024</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-invoice"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																			<tr>
+																				<td>
+																					<a
+																						href="/view-invoice">#INV-0014</a>
+																				</td>
+																				<td>
+																					<h2 class="table-avatar">
+																						<a href="/doctor-profile"
+																							class="avatar avatar-sm mr-2">
+																							<img class="avatar-img rounded-circle"
+																								src="img/doctors/doctor-thumb-05.jpg"
+																								alt="User Image">
+																						</a>
+																						<a href="/doctor-profile">Dr.
+																							Kunal
+																							Yadav<span>Neurology</span></a>
+																					</h2>
+																				</td>
+																				<td>₹600</td>
+																				<td>16 Apr 2024</td>
+																				<td class="text-right">
+																					<div class="table-action">
+																						<a href="/view-invoice"
+																							target="_blank"
+																							class="btn btn-sm bg-info-light">
+																							<i class="far fa-eye"></i>
+																							View
+																						</a>
+																					</div>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- /Billing Tab -->
+
+												</div>
+												<!-- Tab Content -->
+											</div>
+										</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<!-- /Page Content -->
+
+		<%- include('patient-footer')%>

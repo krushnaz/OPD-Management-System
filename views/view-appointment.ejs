@@ -1,0 +1,322 @@
+<!DOCTYPE html> 
+<html lang="en">
+	
+<!-- doccure/doctor-dashboard.html  30 Nov 2019 04:12:03 GMT -->
+<head>
+		<meta charset="utf-8">
+		<title>OPD Management System - Doctor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+		
+		<!-- Favicons -->
+		<link href="/img/favicon.png" rel="icon">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+		
+		<!-- Main CSS -->
+		<link rel="stylesheet" href="/css/style.css">
+
+		<!-- Icon css -->
+		<link rel="stylesheet" href="/admin/assets/css/feathericon.min.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="js/html5shiv.min.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+	
+	</head>
+	<body>
+
+		<!-- Main Wrapper -->
+		<div class="main-wrapper">
+		
+			<!-- Header -->
+			<header class="header">
+				<nav class="navbar navbar-expand-lg header-nav">
+					<div class="navbar-header">
+						<a id="mobile_btn" href="javascript:void(0);">
+							<span class="bar-icon">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</a>
+						<a href="/doctor-dashboard" class="navbar-brand logo">
+							<h3>OPD Management System </h3>
+							<!-- <img src="img/logo.png" class="img-fluid" alt="Logo"> -->
+						</a>
+					</div>
+					<div class="main-menu-wrapper">
+						<div class="menu-header">
+							<a href="/doctor-dashboard" class="menu-logo">
+								<img src="/<%=appointment.doctor.image%>" class="img-fluid" alt="Logo">
+							</a>
+							<a id="menu_close" class="menu-close" href="javascript:void(0);">
+								<i class="fas fa-times"></i>
+							</a>
+						</div>
+						<ul class="main-nav">
+							<li>
+							</li>
+							
+							<!-- <li class="login-link">
+								<a href="/login">Login / Signup</a>
+							</li> -->
+						</ul>	 
+					</div>		 
+					<ul class="nav header-navbar-rht">
+						
+						</li>
+						
+						<!-- User Menu -->
+						<li class="nav-item dropdown has-arrow logged-item">
+							<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+								<span class="user-img">
+									<img class="rounded-circle" src="/<%= appointment.doctor.image %>" width="31" alt="<%=appointment.doctor.name%>">
+								</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-right">
+								<div class="user-header">
+									<div class="avatar avatar-sm">
+										<img src="/<%= appointment.doctor.image %>" alt="Doctor Image" class="avatar-img rounded-circle">
+									</div>
+									<div class="user-text">
+										<h6><%=appointment.doctor.name%></h6>
+										<p class="text-muted mb-0">Doctor</p>
+									</div>
+								</div>
+								<a class="dropdown-item" href="/doctor-dashboard">Dashboard</a>
+								<a class="dropdown-item" href="/doctor-profile-settings">Profile Settings</a>
+								<a class="dropdown-item" href="/logout">Logout</a>
+							</div>
+						</li>
+						<!-- /User Menu -->
+						
+					</ul>
+				</nav>
+			</header>
+			<!-- /Header -->	
+
+		<!-- Page Content -->
+		<div class="content">
+			<div class="container-fluid">
+
+				<div class="row">
+					<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+
+						<!-- Profile Sidebar -->
+						<div class="profile-sidebar">
+							<div class="widget-profile pro-widget-content">
+								<div class="profile-info-widget">
+									<a href="#" class="booking-doc-img">
+										<img src="/<%=appointment.patient.image%>" alt="Patient Image">
+									</a>
+									<div class="profile-det-info">
+										<h3><a href="#"><%=appointment.patient.firstName%></a></h3>
+										<div class="patient-details">
+											<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> <%=appointment.patient.address%></h5>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dashboard-widget">
+								<nav class="dashboard-menu">
+									<ul>
+										<li class="active">
+											<a href="/doctor-dashboard" class="btn btn-secondary">
+												<i class="fas fa-arrow-left"></i>
+												<span>Go to Dashboard</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="/add-prescription/<%=appointment._id%>">
+												<i class="fas fa-plus"></i>
+												<span>Add Prescription</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="/edit-prescription/<%=appointment._id%>">
+												<i class="fas fa-edit"></i>
+												<span>Edit Prescription</span>
+											</a>
+										</li>
+
+										<li>
+											<a href="/view-prescription/<%=appointment._id%>" target="_blank">
+												<i class="fas fa-user-injured"></i>
+												<span>View Prescription</span>
+											</a>
+										</li>
+										<li>
+											<a href="/add-invoice/<%=appointment._id%>" target="_blank">
+												<i class="fas fa-plus"></i>
+												<span>Add Invoice</span>
+											</a>
+										</li>
+										<li>
+											<a href="/view-invoice/<%=appointment._id%>" target="_blank">
+												<i class="fas fa-eye"></i>
+												<span>View Invoice</span>
+											</a>
+										</li>
+
+
+								</nav>
+							</div>
+						</div>
+						<!-- /Profile Sidebar -->
+
+					</div>
+
+					<div class="col-md-7 col-lg-8 col-xl-9">
+						<div class="col-md-12 col-12">
+							<h2 class="breadcrumb-title">View Appointment</h2>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card dash-card">
+									<div class="card-body">
+
+										<!-- Page Content -->
+										<div class="content">
+											<div class="container-fluid">
+												<div class="row">
+													<div class="col-lg-8 offset-lg-2">
+														<div class="invoice-content">
+															<div class="invoice-item">
+																<div class="row">
+																	<div class="col-md-6">
+																		<a href="#" class="navbar-brand logo">
+																			<strong class="customer-text">Patient
+																				Details</strong>
+																		</a>
+																	</div>
+
+																</div>
+															</div>
+
+															<div class="invoice-item">
+																<div class="row">
+																	<div class="col-md-6">
+																		<div class="invoice-info">
+
+																			<p
+																				class="invoice-details invoice-details-two">
+																				<span
+																					class="detail-label">Name:</span><br>
+																				<%=appointment.patient.firstName%> <%=appointment.patient.lastName%><br><br>
+																				<span
+																					class="detail-label">Blood Group:</span><br>
+																					<%=appointment.patient.bloodGroup%><br><br>
+																				<span
+																					class="detail-label">Address:</span><br>
+																					<%=appointment.patient.address%><br><br>
+																				<span class="detail-label">Appointment:<br>
+																					<%
+																						const dateString = appointment.date;
+																						const date = new Date(dateString);
+
+																						// Define options for date formatting
+																						const options = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+
+																						// Format the date string
+																						const formattedDate = date.toLocaleDateString('en-US', options);
+																					%>
+
+																						<%= formattedDate %> 
+
+																					</span><br>
+																			</p>
+																		</div>
+																	</div>
+																	<div class="col-md-6">
+																		<div class="invoice-info invoice-info2">
+																			<!-- Additional patient details -->
+																			<p
+																				class="invoice-details invoice-details-two">
+																				<span
+																					class="detail-label">Phone:</span><br>
+																					<%=appointment.patient.mobile%><br><br>
+																				<span
+																					class="detail-label">Email:</span><br>
+																					<%=appointment.patient.email%><br><br>
+																				<span
+																					class="detail-label">Age:</span><br>
+																					<% if (appointment.patient.dob) { %>
+																						<% const dobParts = appointment.patient.dob.split('/'); %>
+																						<% const day = parseInt(dobParts[0], 10); %>
+																						<% const month = parseInt(dobParts[1], 10) - 1; %>
+																						<% const year = parseInt(dobParts[2], 10); %>
+																						<% const dobDate = new Date(year, month, day); %>
+																						<% const today = new Date(); %>
+																						<% const age = Math.floor((today - dobDate) / (365.25 * 24 * 60 * 60 * 1000)); %>
+																						 <%= age %> years
+																					<% } else { %>
+																						Date of birth not available
+																					<% } %><br><br>
+																				<span
+																					class="detail-label">Gender:</span><br>
+																					<%=appointment.patient.gender%>
+																			</p>
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-6">
+																		<% if (appointment.status !== 'accept by doctor') { %>
+																			<form id="acceptForm" action="/appointment_accept_by_doctor/<%=appointment._id%>" method="post">
+																				<button id="acceptButton" type="submit" data-target="#accept_appointment" class="btn btn-sm bg-success-light" data-toggle="modal">
+																					<i class="fas fa-check"></i> Accept
+																				</button>
+																			</form>
+																		<% } %>
+																	</div>
+																	<div class="col-md-6">
+																		<form id="cancelAppointmentForm" action="/cancel_appointment_by_doctor/<%=appointment._id%>" method="post">
+																			<button type="submit" class="btn btn-sm bg-danger-light">
+																				<i class="fas fa-times"></i> Cancel
+																			</button>
+																		</form>
+																	</div>
+																</div>
+																
+																
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<!-- /Page Content -->
+
+										<script>
+											document.getElementById('cancelAppointmentForm').addEventListener('submit', function(event) {
+												event.preventDefault(); // Prevent default form submission
+												var form = event.target;
+												// AJAX request can be added here if needed
+												form.submit(); // Submit the form
+											});
+										</script>
+										<script>
+											// JavaScript to submit the form when the button is clicked
+											document.getElementById('acceptForm').addEventListener('submit', function() {
+												// Submit the form
+												this.submit();
+											});
+										</script>
+
+										
+										
+										
+									
+					
+				
